@@ -1,0 +1,25 @@
+{
+  "name": "emmett_harper",
+  "version": "0.0.1",
+  "description": "A simple module to auto-create release note changelogs for repos based on the delta in commits.",
+  "main": "./dist/release-notes.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CapitanRedBeard/automatic-release-notes.git"
+  },
+  "keywords": [
+    "release",
+    "notes",
+    "changelog",
+    "automatic"
+  ],
+  "author": "Emmett Harper <emmett_harper@intuit.com> (https://github.intuit.com/Fuego/fuego-release-notes)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CapitanRedBeard/automatic-release-notes/issues"
+  },
+  "homepage": "https://github.com/CapitanRedBeard/automatic-release-notes#readme"
+}
