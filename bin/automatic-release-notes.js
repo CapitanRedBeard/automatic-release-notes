@@ -42,12 +42,27 @@ function printDeltaCommits(tag) {
   return 'git log --pretty=oneline --first-parent ' + tag + '..HEAD';
 }
 
+function githubAuth() {
+  if(GH_TOKEN) {
+    github.authenticate({
+      type: 'token',
+      token: GH_TOKEN
+    });
+  }else {
+    exec("cat $gitcred", function (error, stdout, stderr) {
+      if (error !== null) throwError('Something went wrong when parsing auth ' + error);
+      var authCred = parseSlug(stdout).auth.split(":");
+      github.authenticate({
+        type: 'basic',
+        username: authCred[0],
+        password: authCred[1]
+      });
+    });
+  }
+}
+
 function generateReleaseNotes() {
-  if(!GH_TOKEN) throwError("No GH_TOKEN env variable set. You can set it via 'export GH_TOKEN=<github token>'");
-  github.authenticate({
-    type: 'token',
-    token: GH_TOKEN
-  });
+  githubAuth();
 
   github.repos.getLatestRelease(defaultRelease).then(function (resp) {
     exec(printDeltaCommits(resp.data.tag_name), function (error, stdout, stderr) {
