@@ -1,8 +1,8 @@
 {
   "name": "automatic-release-notes",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "A simple module to auto-create release note changelogs for repos based on the delta in commits.",
-  "main": "./bin/release-notes.js",
+  "main": "./bin/automatic-release-notes.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
