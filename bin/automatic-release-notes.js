@@ -1,4 +1,6 @@
+#!/usr/bin/env node
 'use strict';
+
 var GitHubApi = require('github');
 var parseSlug = require('parse-github-url');
 var fs = require('fs')
@@ -6,7 +8,6 @@ var fs = require('fs')
 var pkg = JSON.parse(fs.readFileSync('./package.json'))
 var exec = require('child_process').exec;
 var GH_TOKEN = process.env.GH_TOKEN
-var GH_ENTERPRISE_URL = process.env.GH_ENTERPRISE_URL
 var ghRepo = parseSlug(pkg.repository.url)
 
 var defaultRelease = {

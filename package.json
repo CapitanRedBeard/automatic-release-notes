@@ -1,6 +1,6 @@
 {
   "name": "automatic-release-notes",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A simple module to auto-create release note changelogs for repos based on the delta in commits.",
   "main": "./bin/automatic-release-notes.js",
   "scripts": {
@@ -24,5 +24,9 @@
   "bin": {
     "automatic-release-notes": "bin/automatic-release-notes.js"
   },
-  "homepage": "https://github.com/CapitanRedBeard/automatic-release-notes#readme"
+  "homepage": "https://github.com/CapitanRedBeard/automatic-release-notes#readme",
+  "devDependencies": {
+    "github": "^9.2.0",
+    "parse-github-url": "^1.0.0"
+  }
 }
