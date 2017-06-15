@@ -64,11 +64,11 @@ function githubAuth() {
 
 function generateReleaseNotes() {
   githubAuth();
-  console.log("Checking ghRepo.hostname", ghRepo.hostname)
+  console.log("Checking ghRepo.hostname", defaultRelease)
   github.repos.getTags(defaultRelease).then(function(respo) {
     console.log("get tags worked")
-  }).catch(function (e) {
-    console.log("UH OH, couldn't getTags: ", e)
+  }).catch(function (error) {
+    console.log("UH OH, couldn't getTags: ", error)
   });
 
   github.repos.getLatestRelease(defaultRelease).then(function (resp) {
