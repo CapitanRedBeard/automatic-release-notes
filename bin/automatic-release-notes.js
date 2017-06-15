@@ -48,8 +48,9 @@ function githubAuth() {
       type: 'token',
       token: GH_TOKEN
     });
-  }else if{
+  }else{
     exec("cat $gitcred", function (error, stdout, stderr) {
+      if(error !== null) throwError("Couldn't rely find a $gitcred or GH_TOKEN env variable" + error)
       var authCred = parseSlug(stdout).auth.split(":");
       github.authenticate({
         type: 'basic',
@@ -57,15 +58,14 @@ function githubAuth() {
         password: authCred[1]
       });
     });
-  }else {
-    throwError('Unable to find GH_TOKEN and/or able to parse a $gitcred properly. ');
   }
+  return;
 }
 
 function generateReleaseNotes() {
   githubAuth();
   console.log("Checking ghRepo.hostname", ghRepo.hostname)
-  github.repo.getTags(defaultRelease).then(function(respo) {
+  github.repos.getTags(defaultRelease).then(function(respo) {
     console.log("get tags worked")
   }).catch(function (e) {
     console.log("UH OH, couldn't getTags: ", error)
