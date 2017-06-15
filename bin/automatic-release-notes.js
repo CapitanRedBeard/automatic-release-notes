@@ -58,9 +58,11 @@ function githubAuth() {
         type: 'basic',
         username: authCred[0],
         password: authCred[1]
+      }).then(function(resp) {
+        console.log('Auth succeeded? Maybe we should be in here', resp)
       }).catch(function(error) {
         console.log('auth failed', error)
-      });;
+      });
     });
   }
   return;
