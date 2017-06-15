@@ -50,7 +50,6 @@ function githubAuth() {
     });
   }else {
     exec("cat $gitcred", function (error, stdout, stderr) {
-      if (error !== null) throwError('Something went wrong when parsing auth ' + error);
       var authCred = parseSlug(stdout).auth.split(":");
       github.authenticate({
         type: 'basic',
@@ -59,10 +58,17 @@ function githubAuth() {
       });
     });
   }
+  throwError('Unable to find GH_TOKEN and/or able to parse a $gitcred properly. ' + error);
 }
 
 function generateReleaseNotes() {
   githubAuth();
+  console.log("Checking ghRepo.hostname", ghRepo.hostname)
+  github.repo.getTags(defaultRelease).then(function(respo) {
+    console.log("get tags worked")
+  }).catch(function (e) {
+    console.log("UH OH, couldn't getTags: ", error)
+  });
 
   github.repos.getLatestRelease(defaultRelease).then(function (resp) {
     exec(printDeltaCommits(resp.data.tag_name), function (error, stdout, stderr) {
