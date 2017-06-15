@@ -48,7 +48,7 @@ function githubAuth() {
       type: 'token',
       token: GH_TOKEN
     });
-  }else {
+  }else if{
     exec("cat $gitcred", function (error, stdout, stderr) {
       var authCred = parseSlug(stdout).auth.split(":");
       github.authenticate({
@@ -57,8 +57,9 @@ function githubAuth() {
         password: authCred[1]
       });
     });
+  }else {
+    throwError('Unable to find GH_TOKEN and/or able to parse a $gitcred properly. ');
   }
-  throwError('Unable to find GH_TOKEN and/or able to parse a $gitcred properly. ');
 }
 
 function generateReleaseNotes() {
