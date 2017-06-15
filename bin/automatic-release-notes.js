@@ -44,6 +44,7 @@ function printDeltaCommits(tag) {
 
 function githubAuth() {
   if(GH_TOKEN) {
+    console.log("Attempting to use GHTOKEN, ", GH_TOKEN)
     github.authenticate({
       type: 'token',
       token: GH_TOKEN
