@@ -68,7 +68,7 @@ function generateReleaseNotes() {
   github.repos.getTags(defaultRelease).then(function(respo) {
     console.log("get tags worked")
   }).catch(function (e) {
-    console.log("UH OH, couldn't getTags: ", error)
+    console.log("UH OH, couldn't getTags: ", e)
   });
 
   github.repos.getLatestRelease(defaultRelease).then(function (resp) {
