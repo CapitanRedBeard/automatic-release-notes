@@ -49,14 +49,18 @@ function githubAuth() {
       token: GH_TOKEN
     });
   }else{
+    console.log("No GH_TOKEN Found, attempting gitcred parse")
     exec("cat $gitcred", function (error, stdout, stderr) {
       if(error !== null) throwError("Couldn't rely find a $gitcred or GH_TOKEN env variable" + error)
       var authCred = parseSlug(stdout).auth.split(":");
+      console.log("Using basic authentication of ", authCred[0], authCred[1]);
       github.authenticate({
         type: 'basic',
         username: authCred[0],
         password: authCred[1]
-      });
+      }).catch(function(error) {
+        console.log('auth failed', error)
+      });;
     });
   }
   return;
@@ -65,15 +69,13 @@ function githubAuth() {
 function generateReleaseNotes() {
   githubAuth();
   console.log("Checking ghRepo.hostname", defaultRelease)
-  github.repos.getTags(defaultRelease).then(function(respo) {
-    console.log("get tags worked")
-  }).catch(function (error) {
+  github.repos.getTags(defaultRelease).catch(function (error) {
     console.log("UH OH, couldn't getTags: ", error)
   });
 
   github.repos.getLatestRelease(defaultRelease).then(function (resp) {
     exec(printDeltaCommits(resp.data.tag_name), function (error, stdout, stderr) {
-          if (error !== null) throwError('Failed executing printDeltaCommits() ' + error);
+          if (error !== null) throwError('Failed executing printDeltaCommits()\nThis is most likey because there are already releasenotes! ' + error);
           defaultRelease.body = stdout === "" ? throwError("No available commits found for this version") : stdout;
           createRelease(defaultRelease);
           console.log("Release notes successfully written, find them here: " +
