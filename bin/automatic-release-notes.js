@@ -58,7 +58,7 @@ function githubAuth() {
       });
     });
   }
-  throwError('Unable to find GH_TOKEN and/or able to parse a $gitcred properly. ' + error);
+  throwError('Unable to find GH_TOKEN and/or able to parse a $gitcred properly. ');
 }
 
 function generateReleaseNotes() {
