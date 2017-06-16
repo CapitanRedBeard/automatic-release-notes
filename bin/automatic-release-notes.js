@@ -57,7 +57,8 @@ function githubAuth() {
       if(error !== null) throwError("ls exec error" + error)
     })
 
-
+    const args = process.argv;
+    console.log(args);
 
     exec("cat $gitcred", function (error, stdout, stderr) {
       console.log("Exec cat $gitcred")

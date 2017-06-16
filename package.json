@@ -1,6 +1,6 @@
 {
   "name": "automatic-release-notes",
-  "version": "0.0.19",
+  "version": "0.0.20",
   "description": "A simple module to auto-create release note changelogs for repos based on the delta in commits.",
   "main": "./bin/automatic-release-notes.js",
   "scripts": {
