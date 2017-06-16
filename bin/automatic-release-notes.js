@@ -72,19 +72,19 @@ function githubAuth() {
 function generateReleaseNotes() {
   githubAuth();
   console.log("Checking ghRepo.hostname", defaultRelease)
-  github.repos.getTags(defaultRelease).catch(function (error) {
-    console.log("UH OH, couldn't getTags: ", error)
-  });
-
-  github.repos.getLatestRelease(defaultRelease).then(function (resp) {
-    exec(printDeltaCommits(resp.data.tag_name), function (error, stdout, stderr) {
-          if (error !== null) throwError('Failed executing printDeltaCommits()\nThis is most likey because there are already releasenotes! ' + error);
-          defaultRelease.body = stdout === "" ? throwError("No available commits found for this version") : stdout;
-          createRelease(defaultRelease);
-          console.log("Release notes successfully written, find them here: " +
-            "https://" + ghRepo.hostname + "/" + ghRepo.repo + "/releases/tag/" + pkg.version)
-       });
-  }).catch(function (error) {
-    throwError('Failed executing github.repos.getLatestRelease() ' + error);
-  });
+  // github.repos.getTags(defaultRelease).catch(function (error) {
+  //   console.log("UH OH, couldn't getTags: ", error)
+  // });
+  //
+  // github.repos.getLatestRelease(defaultRelease).then(function (resp) {
+  //   exec(printDeltaCommits(resp.data.tag_name), function (error, stdout, stderr) {
+  //         if (error !== null) throwError('Failed executing printDeltaCommits()\nThis is most likey because there are already releasenotes! ' + error);
+  //         defaultRelease.body = stdout === "" ? throwError("No available commits found for this version") : stdout;
+  //         createRelease(defaultRelease);
+  //         console.log("Release notes successfully written, find them here: " +
+  //           "https://" + ghRepo.hostname + "/" + ghRepo.repo + "/releases/tag/" + pkg.version)
+  //      });
+  // }).catch(function (error) {
+  //   throwError('Failed executing github.repos.getLatestRelease() ' + error);
+  // });
 }
